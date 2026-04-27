@@ -178,8 +178,24 @@ function displayExhibitions(exhibitionList){
 
     exhibitionContainer.innerHTML = html;
 
+    const faroviteButtons = document.querySelectorAll(".favorite-btn");
+
+    faroviteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const exhibitionId = Number(button.dataset.id)
+        toggleFavorite(exhibitionId); 
+      });
+    });
 
 
+}
+
+function toggleFavorite (id) {
+  if (isFavorite.includes(id)) {
+    favoriteIds = favoriteIds.filter((favoriteId) => {
+      return favoriteId !== id;
+    });
+  }
 }
 
 
