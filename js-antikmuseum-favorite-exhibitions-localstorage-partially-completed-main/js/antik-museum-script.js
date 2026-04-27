@@ -178,25 +178,32 @@ function displayExhibitions(exhibitionList){
 
     exhibitionContainer.innerHTML = html;
 
-    const faroviteButtons = document.querySelectorAll(".favorite-btn");
+    const favoriteButtons = document.querySelectorAll(".favorite-btn");
+    
+    favoriteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const ExhibitionId = Number(button.dataset.id)
+          toggleFavorite(ExhibitionId); 
+        });
+    });
 
-    faroviteButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const exhibitionId = Number(button.dataset.id)
-        toggleFavorite(exhibitionId); 
+}
+
+
+function toggleFavorite(id) {
+  if (favoriteIds.includes(id)) {
+      favoriteIds = favoriteIds.filter((favoriteId) =>  {
+        return favoriteId !== id;
       });
-    });
-
-
-}
-
-function toggleFavorite (id) {
-  if (isFavorite.includes(id)) {
-    favoriteIds = favoriteIds.filter((favoriteId) => {
-      return favoriteId !== id;
-    });
+  } else {
+    favoriteIds.push(id);
   }
+
+  localStorage.setItem("favoriteExhibitions", JSON.stringify(favoriteIds));
+
+  displayExhibitions(exhibitions);
 }
 
 
 
+displayExhibitions(exhibitions);
